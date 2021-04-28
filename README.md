@@ -22,7 +22,7 @@ Use deployment_pipeline/codecommitrepo.yaml to deploy a Cloudformation Stack int
 
 ```
 aws --region ${REGION} cloudformation deploy --template-file deployment_pipeline/codecommit_repo.yaml \
---stack-name "${BUSINESS_UNIT}${APP_NAME}-codecommit-repo" \
+--stack-name "${BUSINESS_UNIT}-${APP_NAME}-codecommit-repo" \
 --parameter-overrides "BusinessUnit=${BUSINESS_UNIT}" "AppName=${APP_NAME}" \
 "RepoDescription=List of IP Ranges to be used in EC2 Security Groups" 
 ```
