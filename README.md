@@ -1,23 +1,46 @@
+Prereqs: 
+
+Install Git, the AWS CDK and the AWS CLI:
+
+https://docs.aws.amazon.com/cli/latest/userguide/install-cliv1.html
+https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_prerequisites
+https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html#getting_started_install
+
+
 Clone the orignal repository:
 
 ```
-APP_NAME='CorpPrefixLists'
-BUSINESS_UNIT='Networking'
-URL_OF_THIS_REPOSITORY=''
-git clone $URL_OF_THIS_REPOSITORY
+export APP_NAME='CorpPrefixLists'
+export BUSINESS_UNIT='Networking'
+export REGION='us-west-2'
+export ORIGINAL_URL_OF_THIS_REPOSITORY='https://github.com/walkerk1980/AWSCorpPrefixLists.git'
+git clone $ORIGINAL_URL_OF_THIS_REPOSITORY corp_prefix_lists
 cd corp_prefix_lists/
 ```
 
-Use deployment_pipeline/codecommitrepo.yaml to deploy a Cloudformation Stack into your AWS Organization's Network Management Account.
-
-Creds for AWS Account required for the commands below:
+Use deployment_pipeline/codecommitrepo.yaml to deploy a Cloudformation Stack into your AWS Organization's Network Management Account:
 
 ```
-export ORIGIN_URL=$(aws cloudformation list-exports --query 'Exports[?Name==`${BUSINESS_UNIT}-${APP_NAME}-git-http-url`].Value' --output text)
-git remote add origin "${ORIGIN_URL}.git"
+aws --region ${REGION} cloudformation deploy --template-file deployment_pipeline/codecommit_repo.yaml \
+--stack-name "${BUSINESS_UNIT}${APP_NAME}-codecommit-repo" \
+--parameter-overrides "BusinessUnit=${BUSINESS_UNIT}" "AppName=${APP_NAME}" \
+"RepoDescription=List of IP Ranges to be used in EC2 Security Groups" 
 ```
 
-Set constants in cdk.context.json
+```
+export NEW_ORIGIN_URL=$(aws --region ${REGION} cloudformation list-exports \
+--query 'Exports[?Name==`'${BUSINESS_UNIT}-${APP_NAME}-git-http-url'`].Value' --output text)
+git remove origin
+git remote add origin "${NEW_ORIGIN_URL}.git"
+git push --set-upstream origin main
+git remote add upstream "${ORIGINAL_URL_OF_THIS_REPOSITORY}"
+```
+
+Set constants in cdk.context.json.
+
+Change contents of yaml files in corp_prefix_lists/cidr_ranges/ as desired.
+
+Update local repo:
 
 ```
 git add .
@@ -25,17 +48,17 @@ git commit -m 'inital code'
 git push --set-upstream origin main
 ```
 
-Run 'cdk bootstrap' in both PREPROD and PROD Accounts/Regions
-
-```
-cdk bootstrap
-```
-
-Install application dependencies
+Install application dependencies:
 
 ```
 source .venv/bin/activate >/dev/null 2>&1|| python3 -m venv .venv && source .venv/bin/activate
 pip install --upgrade -r requirements.txt
+```
+
+Bootstrap your AWS Account/Regions
+
+```
+cdk bootstrap "aws://$(aws sts get-caller-identity --query Account --output text)/${REGION}"
 ```
 
 Test with a synth and then deploy
