@@ -9,7 +9,7 @@ Resources:
   codecommitrepo:
     Type: AWS::CodeCommit::Repository
     Properties:
-      RepositoryName: !Sub '${BusinessUnit}${AppName}'
+      RepositoryName: !Sub '${BusinessUnit}-${AppName}'
       RepositoryDescription: !Sub '${RepoDescription}'
 Outputs:
   GitRepoHTTPUrl:

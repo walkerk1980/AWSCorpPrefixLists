@@ -17,7 +17,7 @@ class VersionControlStack(core.Stack):
         codecommit_repo = codecommit.Repository.from_repository_name(
             self,
             'codecommit_repo',
-            repository_name='{0}{1}'.format(
+            repository_name='{0}-{1}'.format(
                 props['BUSINESS_UNIT'],
                 props['APP_NAME']
             )
