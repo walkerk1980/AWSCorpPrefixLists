@@ -44,7 +44,7 @@ Update local repo:
 
 ```
 git add .
-git commit -m 'inital code'
+git commit -m 'updated constants and prefix lists'
 ```
 
 Install application dependencies:
