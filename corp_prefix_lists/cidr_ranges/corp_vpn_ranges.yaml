@@ -1,0 +1,6 @@
+Range1:
+  cidr: '10.0.0.0/24'
+  description: 'vpn range 1'
+Range2:
+  cidr: '10.0.1.0/24'
+  description: 'vpn range 2'

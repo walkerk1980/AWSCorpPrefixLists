@@ -3,17 +3,18 @@ import os
 
 from aws_cdk import core as cdk
 
-# For consistency with TypeScript code, `cdk` is the preferred import name for
-# the CDK's core module.  The following line also imports it as `core` for use
-# with examples from the CDK Developer's Guide, which are in the process of
-# being updated to use `cdk`.  You may delete this import if you don't need it.
-from aws_cdk import core
+from deployment_pipeline.deployment_pipeline_stack import DeploymentPipelineStack
 
-from corp_prefix_lists.corp_prefix_lists_stack import CorpPrefixListsStack
+app = cdk.App()
 
+# Constants
+# Set Constants in cdk.context.json
+props = {}
+props.update({'BUSINESS_UNIT': app.node.try_get_context('BUSINESS_UNIT')})
+props.update({'APP_NAME': app.node.try_get_context('APP_NAME')})
+props.update({'ACCEPTANCE_TEST_EMAILS': app.node.try_get_context('ACCEPTANCE_TEST_EMAILS')})
 
-app = core.App()
-CorpPrefixListsStack(app, "CorpPrefixListsStack",
+DeploymentPipelineStack(app, "DeploymentStack", props=props
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.

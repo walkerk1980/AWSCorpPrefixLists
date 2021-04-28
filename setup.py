@@ -20,6 +20,17 @@ setuptools.setup(
 
     install_requires=[
         "aws-cdk.core==1.100.0",
+        "aws-cdk.aws-events",
+        "aws-cdk.aws-events-targets",
+        "aws-cdk.aws-ec2",
+        "aws-cdk.aws-ecs-patterns",
+        "aws-cdk.aws_iam",
+        "aws-cdk.aws_s3_assets",
+        "aws-cdk.aws_secretsmanager",
+        "aws-cdk.aws_codecommit",
+        "aws-cdk.aws_codepipeline",
+        "aws-cdk.aws_codepipeline-actions",
+        "aws-cdk.pipelines"
     ],
 
     python_requires=">=3.6",
