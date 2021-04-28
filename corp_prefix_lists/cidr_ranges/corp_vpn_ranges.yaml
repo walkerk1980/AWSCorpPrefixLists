@@ -1,6 +1,6 @@
 ranges:
-  - description: 'vpn range 1'
-    cidr: '10.0.0.0/24'
-  - description: 'vpn range 2'
-    cidr: '10.0.1.0/24'
+  - Description: 'vpn range 1'
+    Cidr: '10.0.0.0/24'
+  - Description: 'vpn range 2'
+    Cidr: '10.0.1.0/24'
     

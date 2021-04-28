@@ -13,5 +13,6 @@ class CorpPrefixListsStack(cdk.Stack):
             'prefix-list',
             prefix_list_name=prefix_name,
             address_family='IPv4',
-            max_entries=len(cidr_ranges)
+            max_entries=len(cidr_ranges),
+            entries=cidr_ranges
         )

@@ -22,7 +22,7 @@ version_control_stack = VersionControlStack(
 )
 props = version_control_stack.output_props
 
-DeploymentPipelineStack(app, "DeploymentStack", props=props
+DeploymentPipelineStack(app, '{0}-{1}-deployment-pipeline'.format(props['BUSINESS_UNIT'], props['APP_NAME']), props=props
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
