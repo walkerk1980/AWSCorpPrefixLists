@@ -11,6 +11,7 @@ from aws_cdk import(
 )
 
 from deployment_pipeline.version_control_stack import VersionControlStack
+from corp_prefix_lists.corp_prefix_lists_stage import CorpPrefixListsStage
 
 class DeploymentPipelineStack(cdk.Stack):
 
@@ -36,7 +37,7 @@ class DeploymentPipelineStack(cdk.Stack):
 
         codecommit_repo = codecommit.Repository.from_repository_arn(
             self,
-            'source_repo',
+            'source-repo',
             repository_arn=props['repository_arn']
         )
 
@@ -56,3 +57,18 @@ class DeploymentPipelineStack(cdk.Stack):
             cloud_assembly_artifact=cloud_assembly_artifact,
             source_artifact=source_artifact
         )
+
+        deployment_pipeline = pipelines.CdkPipeline(
+            self,
+            'deployment-pipeline',
+            cloud_assembly_artifact=cloud_assembly_artifact,
+            source_action=source_action,
+            synth_action=synth_action
+        )
+
+        corp_prefix_lists_stage = CorpPrefixListsStage(
+            self,
+            'corp-prefix-lists-stage',
+            props=props
+        )
+        deployment_pipeline.add_application_stage(corp_prefix_lists_stage)
