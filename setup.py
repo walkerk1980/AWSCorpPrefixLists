@@ -30,7 +30,8 @@ setuptools.setup(
         "aws-cdk.aws_codecommit",
         "aws-cdk.aws_codepipeline",
         "aws-cdk.aws_codepipeline-actions",
-        "aws-cdk.pipelines"
+        "aws-cdk.pipelines",
+        "pyyaml"
     ],
 
     python_requires=">=3.6",

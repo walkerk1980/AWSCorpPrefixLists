@@ -12,6 +12,7 @@ from aws_cdk import(
 
 from deployment_pipeline.version_control_stack import VersionControlStack
 from corp_prefix_lists.corp_prefix_lists_stage import CorpPrefixListsStage
+from corp_prefix_lists.prefix_data import PrefixData
 
 class DeploymentPipelineStack(cdk.Stack):
 
@@ -66,9 +67,20 @@ class DeploymentPipelineStack(cdk.Stack):
             synth_action=synth_action
         )
 
-        corp_prefix_lists_stage = CorpPrefixListsStage(
-            self,
-            'corp-prefix-lists-stage',
-            props=props
-        )
-        deployment_pipeline.add_application_stage(corp_prefix_lists_stage)
+        # These names passed to the class must match the file name
+        # without the .yaml prefix
+        prefix_lists = [
+            PrefixData('corp_vpn_ranges'),
+            PrefixData('corp_datacenter_ranges')
+        ]
+
+        for prefix_list in prefix_lists:
+            list_stage = CorpPrefixListsStage(
+                self,
+                '{0}-stage'.format(prefix_list.name).replace('_','-'),
+                props=props,
+                prefix_name=prefix_list.name,
+                cidr_ranges=prefix_list.ranges
+            )
+            deployment_pipeline.add_application_stage(list_stage)
+
