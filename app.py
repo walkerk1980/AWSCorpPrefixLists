@@ -3,6 +3,7 @@ import os
 
 from aws_cdk import core as cdk
 
+from deployment_pipeline.version_control_stack import VersionControlStack
 from deployment_pipeline.deployment_pipeline_stack import DeploymentPipelineStack
 
 app = cdk.App()
@@ -13,6 +14,13 @@ props = {}
 props.update({'BUSINESS_UNIT': app.node.try_get_context('BUSINESS_UNIT')})
 props.update({'APP_NAME': app.node.try_get_context('APP_NAME')})
 props.update({'ACCEPTANCE_TEST_EMAILS': app.node.try_get_context('ACCEPTANCE_TEST_EMAILS')})
+
+version_control_stack = VersionControlStack(
+    app,
+    construct_id='{0}-{1}-version-control'.format(props['BUSINESS_UNIT'], props['APP_NAME']),
+    props=props
+)
+props = version_control_stack.output_props
 
 DeploymentPipelineStack(app, "DeploymentStack", props=props
     # If you don't specify 'env', this stack will be environment-agnostic.

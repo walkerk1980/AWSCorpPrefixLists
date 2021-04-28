@@ -10,7 +10,6 @@ from aws_cdk import(
     pipelines
 )
 
-from deployment_pipeline.version_control_stack import VersionControlStack
 from corp_prefix_lists.corp_prefix_lists_stage import CorpPrefixListsStage
 from corp_prefix_lists.prefix_data import PrefixData
 
@@ -28,12 +27,6 @@ class DeploymentPipelineStack(cdk.Stack):
         
         cloud_assembly_artifact = codepipeline.Artifact('cloud_assembly_artifact')
 
-        version_control_stack = VersionControlStack(
-            self,
-            construct_id='{0}-{1}-version-control'.format(BUSINESS_UNIT, APP_NAME),
-            props=props
-        )
-        props = version_control_stack.output_props
         source_artifact = codepipeline.Artifact('source')
 
         codecommit_repo = codecommit.Repository.from_repository_arn(
