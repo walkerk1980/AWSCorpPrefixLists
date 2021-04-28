@@ -1,5 +1,5 @@
 {
     "APP_NAME" : "CorpPrefixLists",
-    "BUSINESS_UNIT" : "Network",
+    "BUSINESS_UNIT" : "Networking",
     "ACCEPTANCE_TEST_EMAILS" : [""]
 }
