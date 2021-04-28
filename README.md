@@ -11,7 +11,7 @@ Clone the orignal repository:
 
 ```
 export APP_NAME='CorpPrefixLists'
-export BUSINESS_UNIT='Networking'
+export BUSINESS_UNIT='NET'
 export REGION='us-west-2'
 export ORIGINAL_URL_OF_THIS_REPOSITORY='https://github.com/walkerk1980/AWSCorpPrefixLists.git'
 git clone $ORIGINAL_URL_OF_THIS_REPOSITORY corp_prefix_lists
