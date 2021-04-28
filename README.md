@@ -30,7 +30,7 @@ aws --region ${REGION} cloudformation deploy --template-file deployment_pipeline
 ```
 export NEW_ORIGIN_URL=$(aws --region ${REGION} cloudformation list-exports \
 --query 'Exports[?Name==`'${BUSINESS_UNIT}-${APP_NAME}-git-http-url'`].Value' --output text)
-git remove origin
+git remote remove origin
 git remote add origin "${NEW_ORIGIN_URL}.git"
 git push --set-upstream origin main
 git remote add upstream "${ORIGINAL_URL_OF_THIS_REPOSITORY}"
@@ -45,7 +45,6 @@ Update local repo:
 ```
 git add .
 git commit -m 'inital code'
-git push --set-upstream origin main
 ```
 
 Install application dependencies:
