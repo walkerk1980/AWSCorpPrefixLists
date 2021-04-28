@@ -19,7 +19,7 @@ setuptools.setup(
     packages=setuptools.find_packages(where="corp_prefix_lists"),
 
     install_requires=[
-        "aws-cdk.core==1.100.0",
+        "aws-cdk.core",
         "aws-cdk.aws-events",
         "aws-cdk.aws-events-targets",
         "aws-cdk.aws-ec2",
