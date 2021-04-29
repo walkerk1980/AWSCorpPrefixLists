@@ -14,6 +14,7 @@ props = {}
 props.update({'BUSINESS_UNIT': app.node.try_get_context('BUSINESS_UNIT')})
 props.update({'APP_NAME': app.node.try_get_context('APP_NAME')})
 props.update({'ACCEPTANCE_TEST_EMAILS': app.node.try_get_context('ACCEPTANCE_TEST_EMAILS')})
+props.update({'SHARE_WITH_ORG_ID': app.node.try_get_context('SHARE_WITH_ORG_ID')})
 
 version_control_stack = VersionControlStack(
     app,

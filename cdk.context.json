@@ -1,5 +1,6 @@
 {
     "APP_NAME" : "CorpPrefixLists",
     "BUSINESS_UNIT" : "NET",
-    "ACCEPTANCE_TEST_EMAILS" : [""]
+    "ACCEPTANCE_TEST_EMAILS" : [""],
+    "SHARE_WITH_ORG_ID": ""
 }
