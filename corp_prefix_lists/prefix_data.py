@@ -14,6 +14,11 @@ class PrefixData():
       self.prefix_name = prefix_name
       with open(file_path, 'r') as file_descriptor:
         self.cidr_ranges = yaml.safe_load(file_descriptor.read()).get('ranges')
+      REQUIRED_KEYS = ['cidr', 'description']
+      for range in self.cidr_ranges:
+        for key in REQUIRED_KEYS:
+          if key not in range.keys():
+            raise ValueError('Prefix List Entries require the key: {0}'.format(key))
       
     @property
     def ranges(self):

@@ -1,5 +1,5 @@
 ranges:
-  - Description: 'datacenter range 1'
-    Cidr: '10.0.0.0/24'
-  - Description: 'datacenter range 2'
-    Cidr: '10.0.1.0/24'
+  - description: 'datacenter range 1'
+    cidr: '10.0.0.0/24'
+  - description: 'datacenter range 2'
+    cidr: '10.0.1.0/24'
