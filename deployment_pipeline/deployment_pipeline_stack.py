@@ -73,7 +73,8 @@ class DeploymentPipelineStack(cdk.Stack):
                 '{0}-stage'.format(prefix_list.name).replace('_','-'),
                 props=props,
                 prefix_name=prefix_list.name,
-                cidr_ranges=prefix_list.ranges
+                cidr_ranges=prefix_list.entries,
+                max_entries=prefix_list.max_entries
             )
             deployment_pipeline.add_application_stage(list_stage)
 

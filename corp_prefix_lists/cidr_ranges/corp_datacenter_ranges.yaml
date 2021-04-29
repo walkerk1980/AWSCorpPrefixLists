@@ -1,3 +1,6 @@
+# Max Entries cannot be changed after Prefix List has been created
+# https://docs.aws.amazon.com/vpc/latest/userguide/managed-prefix-lists.html#managed-prefix-lists-concepts
+max_entries: '20'
 ranges:
   - description: 'datacenter range 1'
     cidr: '10.0.0.0/24'
