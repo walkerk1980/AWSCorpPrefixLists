@@ -23,7 +23,7 @@ setuptools.setup(
         "aws-cdk.aws-events",
         "aws-cdk.aws-events-targets",
         "aws-cdk.aws-ec2",
-        "aws-cdk.aws-ecs-patterns",
+        "aws-cdk.aws_ram",
         "aws-cdk.aws_iam",
         "aws-cdk.aws_s3_assets",
         "aws-cdk.aws_secretsmanager",

@@ -1,7 +1,8 @@
 from aws_cdk import core as cdk
 
 from aws_cdk import (
-    aws_ec2 as ec2
+    aws_ec2 as ec2,
+    aws_ram as ram
 )
 from jsii import Number
 class CorpPrefixListsStack(cdk.Stack):
@@ -17,3 +18,4 @@ class CorpPrefixListsStack(cdk.Stack):
             max_entries=max_entries,
             entries=cidr_ranges
         )
+
