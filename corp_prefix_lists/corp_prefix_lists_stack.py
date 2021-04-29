@@ -20,11 +20,11 @@ class CorpPrefixListsStack(cdk.Stack):
             entries=cidr_ranges
         )
 
-        if props.get('SHARE_WITH_ORG_ID'):
+        if props.get('SHARE_WITH_ORG_ARN'):
             prefix_list_share = ram.CfnResourceShare(
                 self,
                 'prefix-list-share',
                 name='{0}-{1}'.format(props['BUSINESS_UNIT'], prefix_name),
                 resource_arns=[prefix_list.attr_arn],
-                principals=[iam.OrganizationPrincipal(props['SHARE_WITH_ORG_ID'])]
+                principals=[iam.OrganizationPrincipal(props['SHARE_WITH_ORG_ARN'])]
             )
