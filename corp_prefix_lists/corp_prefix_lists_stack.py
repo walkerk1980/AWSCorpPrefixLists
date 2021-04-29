@@ -26,6 +26,6 @@ class CorpPrefixListsStack(cdk.Stack):
                 'prefix-list-share',
                 name='{0}-{1}'.format(props['BUSINESS_UNIT'], prefix_name),
                 resource_arns=[prefix_list.attr_arn],
-                principals=[iam.OrganizationPrincipal(props['SHARE_WITH_ORG_ARN'])],
+                principals=[props['SHARE_WITH_ORG_ARN']],
                 allow_external_principals=False
             )
