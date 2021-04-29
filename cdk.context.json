@@ -1,6 +1,10 @@
 {
     "APP_NAME" : "CorpPrefixLists",
     "BUSINESS_UNIT" : "NET",
+    "PREFIX_LIST_NAMES": [
+        "corp_vpn_ranges",
+        "corp_datacenter_ranges"
+    ],
     "ACCEPTANCE_TEST_EMAILS" : [""],
     "SHARE_WITH_ORG_ARN": ""
 }

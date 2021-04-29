@@ -62,10 +62,9 @@ class DeploymentPipelineStack(cdk.Stack):
 
         # These names passed to the class must match the file name
         # without the .yaml prefix
-        prefix_lists = [
-            PrefixData('corp_vpn_ranges'),
-            PrefixData('corp_datacenter_ranges')
-        ]
+        prefix_lists = []
+        for prefix_list_name in props['PREFIX_LIST_NAMES']:
+            prefix_lists.append(PrefixData(prefix_list_name))
 
         for prefix_list in prefix_lists:
             list_stage = CorpPrefixListsStage(
