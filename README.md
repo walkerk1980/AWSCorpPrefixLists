@@ -1,3 +1,10 @@
+# Welcome to AWS CDK Prefix Lists!
+
+The purpose of this repository is to enable management of your Corporate IP ranges for using in Prefix Lists centrally in a Network Management account in your AWS Organization.
+These Prefix Lists can be shared via RAM with the rest of your AWS Organization and used in EC2 Security Groups or AWS Firewall Manager.
+
+# Deployment Instructions
+
 Prereqs: 
 
 Install Git, the AWS CDK and the AWS CLI:
