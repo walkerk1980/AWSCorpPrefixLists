@@ -5,6 +5,5 @@
         "corp_vpn_ranges",
         "corp_datacenter_ranges"
     ],
-    "ACCEPTANCE_TEST_EMAILS" : [""],
     "SHARE_WITH_ORG_ARN": ""
 }
