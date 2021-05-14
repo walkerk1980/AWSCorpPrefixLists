@@ -67,6 +67,7 @@ Bootstrap your AWS Account/Regions
 
 ```
 cdk bootstrap "aws://$(aws sts get-caller-identity --query Account --output text)/${REGION}"
+cdk bootstrap
 ```
 
 Test with a synth and then deploy

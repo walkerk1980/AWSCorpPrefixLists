@@ -18,8 +18,6 @@ class DeploymentPipelineStack(cdk.Stack):
     def __init__(self, scope: cdk.Construct, construct_id: str, props: dict, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        # The code that defines your stack goes here
-
         BUSINESS_UNIT = self.node.try_get_context('BUSINESS_UNIT')
         APP_NAME = self.node.try_get_context('APP_NAME')
 
@@ -69,11 +67,21 @@ class DeploymentPipelineStack(cdk.Stack):
         for prefix_list in prefix_lists:
             list_stage = CorpPrefixListsStage(
                 self,
-                '{0}-stage'.format(prefix_list.name).replace('_','-'),
+                '{0}-stage-{1}'.format(prefix_list.name, 'home-region').replace('_','-'),
                 props=props,
                 prefix_name=prefix_list.name,
                 cidr_ranges=prefix_list.entries,
                 max_entries=prefix_list.max_entries
             )
             deployment_pipeline.add_application_stage(list_stage)
-
+            for region in props['ADDITIONAL_REGIONS']:
+                cross_region_list_stage = CorpPrefixListsStage(
+                    self,
+                    '{0}-stage-{1}'.format(prefix_list.name, region).replace('_','-'),
+                    props=props,
+                    prefix_name=prefix_list.name,
+                    cidr_ranges=prefix_list.entries,
+                    max_entries=prefix_list.max_entries,
+                    env={'region': region}
+                )
+                deployment_pipeline.add_application_stage(cross_region_list_stage)

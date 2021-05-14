@@ -14,17 +14,28 @@ props = {}
 props.update({'BUSINESS_UNIT': app.node.try_get_context('BUSINESS_UNIT')})
 props.update({'APP_NAME': app.node.try_get_context('APP_NAME')})
 props.update({'PREFIX_LIST_NAMES': app.node.try_get_context('PREFIX_LIST_NAMES')})
-props.update({'ACCEPTANCE_TEST_EMAILS': app.node.try_get_context('ACCEPTANCE_TEST_EMAILS')})
 props.update({'SHARE_WITH_ORG_ARN': app.node.try_get_context('SHARE_WITH_ORG_ARN')})
+props.update({'DEPLOYMENT_REGION': app.node.try_get_context('DEPLOYMENT_REGION')})
+props.update({'ADDITIONAL_REGIONS': app.node.try_get_context('ADDITIONAL_REGIONS')})
+
+PIPELINE_ENV = {
+    'account': os.environ["CDK_DEFAULT_ACCOUNT"],
+    'region': props['DEPLOYMENT_REGION']
+}
 
 version_control_stack = VersionControlStack(
     app,
     construct_id='{0}-{1}-version-control'.format(props['BUSINESS_UNIT'], props['APP_NAME']),
-    props=props
+    props=props,
+    env=PIPELINE_ENV
 )
 props = version_control_stack.output_props
 
-deployment_pipeline_stack = DeploymentPipelineStack(app, '{0}-{1}-deployment-pipeline'.format(props['BUSINESS_UNIT'], props['APP_NAME']), props=props
+deployment_pipeline_stack = DeploymentPipelineStack(
+    app,
+    construct_id='{0}-{1}-deployment-pipeline'.format(props['BUSINESS_UNIT'], props['APP_NAME']),
+    props=props,
+    env=PIPELINE_ENV
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.
